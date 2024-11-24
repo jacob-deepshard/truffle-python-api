@@ -10,10 +10,34 @@ from protos import context_pb2
 
 
 class Client:
+    """A client for interacting with the Truffle gRPC server.
+
+    This class provides methods for generating text, getting embeddings, handling user input/output,
+    and managing callbacks for generation events.
+
+    Example:
+        >>> client = Client()
+        >>> response = client.generate("What is the capital of France?")
+        >>> print(response)
+        'The capital of France is Paris.'
+
+    Attributes:
+        start_cbs (Dict[str, Callable[[], None]]): Dictionary of callback functions to run when generation starts
+        stop_cbs (Dict[str, Callable[[], None]]): Dictionary of callback functions to run when generation stops
+    """
+
     start_cbs: Dict[str, Callable[[], None]]
     stop_cbs: Dict[str, Callable[[], None]]
 
     def __init__(self, server_address: str = "localhost:50051"):
+        """Initialize the Client.
+
+        Args:
+            server_address (str, optional): Address of the gRPC server. Defaults to "localhost:50051".
+
+        Example:
+            >>> client = Client("localhost:50051")
+        """
         self.start_cbs = {}
         self.stop_cbs = {}
 
@@ -22,6 +46,7 @@ class Client:
         self.stub = app_pb2_grpc.AppStub(self.channel)
 
     def __del__(self):
+        """Clean up by closing the gRPC channel."""
         # Close the channel
         self.channel.close()
 
@@ -40,7 +65,42 @@ class Client:
         on_stop: Optional[Callable[[], None]] = None,
         **kwargs,
     ) -> str:
-        """Generates a response from the model."""
+        """Generate a response from the model.
+
+        Args:
+            prompt (str): The input prompt for generation
+            max_tokens (Optional[int], optional): Maximum number of tokens to generate. Defaults to None.
+            temperature (Optional[float], optional): Sampling temperature. Defaults to None.
+            frequency_penalty (Optional[float], optional): Frequency penalty. Defaults to None.
+            presence_penalty (Optional[float], optional): Presence penalty. Defaults to None.
+            top_p (Optional[float], optional): Top-p sampling parameter. Defaults to None.
+            stop_strings (Optional[List[str]], optional): Strings that stop generation. Defaults to None.
+            streaming (Optional[bool], optional): Whether to stream the response. Defaults to False.
+            on_chunk (Optional[Callable[[str], None]], optional): Callback for each generated chunk. Defaults to None.
+            on_start (Optional[Callable[[], None]], optional): Callback when generation starts. Defaults to None.
+            on_stop (Optional[Callable[[], None]], optional): Callback when generation stops. Defaults to None.
+
+        Returns:
+            str: The generated text
+
+        Example:
+            >>> client = Client()
+            >>> # Basic generation
+            >>> response = client.generate("Write a haiku about programming")
+            >>> print(response)
+            'Code flows like water
+            Bugs crawl through my sleepless mind
+            Debug until dawn'
+            >>> 
+            >>> # Streaming generation with callbacks
+            >>> def on_chunk(chunk):
+            ...     print(f"Received chunk: {chunk}")
+            >>> response = client.generate(
+            ...     "Count to 5",
+            ...     streaming=True,
+            ...     on_chunk=on_chunk
+            ... )
+        """
 
         # Handle callbacks
         if on_start:
@@ -93,7 +153,27 @@ class Client:
         stop_strings: Optional[List[str]] = None,
         on_chunk: Optional[Callable[[str], None]] = None,
     ):
-        """Generates a stream of responses from the model."""
+        """Generate a stream of responses from the model.
+
+        Args:
+            prompt (str): The input prompt for generation
+            max_tokens (Optional[int], optional): Maximum number of tokens to generate. Defaults to None.
+            temperature (Optional[float], optional): Sampling temperature. Defaults to None.
+            frequency_penalty (Optional[float], optional): Frequency penalty. Defaults to None.
+            presence_penalty (Optional[float], optional): Presence penalty. Defaults to None.
+            top_p (Optional[float], optional): Top-p sampling parameter. Defaults to None.
+            stop_strings (Optional[List[str]], optional): Strings that stop generation. Defaults to None.
+            on_chunk (Optional[Callable[[str], None]], optional): Callback for each generated chunk. Defaults to None.
+
+        Yields:
+            str: Generated text chunks
+
+        Example:
+            >>> client = Client()
+            >>> for chunk in client._generate_stream("Count to 3"):
+            ...     print(chunk, end='')
+            1, 2, 3
+        """
 
         # Create the GenerateRequest message
         generate_request = app_pb2.GenerateRequest(
@@ -126,7 +206,21 @@ class Client:
                 break
 
     def _request_iterator(self, app_request):
-        """An iterator that yields the AppRequest."""
+        """Create an iterator that yields the AppRequest.
+
+        Args:
+            app_request: The AppRequest to yield
+
+        Yields:
+            The AppRequest
+
+        Example:
+            >>> client = Client()
+            >>> request = app_pb2.AppRequest()
+            >>> iterator = client._request_iterator(request)
+            >>> next(iterator) == request
+            True
+        """
         yield app_request
 
     def _generate_sync(
@@ -139,7 +233,26 @@ class Client:
         top_p: Optional[float] = None,
         stop_strings: Optional[List[str]] = None,
     ) -> str:
-        """Generates a synchronous response from the model."""
+        """Generate a synchronous response from the model.
+
+        Args:
+            prompt (str): The input prompt for generation
+            max_tokens (Optional[int], optional): Maximum number of tokens to generate. Defaults to None.
+            temperature (Optional[float], optional): Sampling temperature. Defaults to None.
+            frequency_penalty (Optional[float], optional): Frequency penalty. Defaults to None.
+            presence_penalty (Optional[float], optional): Presence penalty. Defaults to None.
+            top_p (Optional[float], optional): Top-p sampling parameter. Defaults to None.
+            stop_strings (Optional[List[str]], optional): Strings that stop generation. Defaults to None.
+
+        Returns:
+            str: The generated text
+
+        Example:
+            >>> client = Client()
+            >>> response = client._generate_sync("What is 2+2?")
+            >>> print(response)
+            '4'
+        """
 
         output = ""
         for chunk in self._generate_stream(
@@ -155,7 +268,22 @@ class Client:
         return output
 
     def embed(self, docs: List[str], **kwargs) -> np.ndarray:
-        """Returns a numpy array of embeddings for the given documents."""
+        """Get embeddings for a list of documents.
+
+        Args:
+            docs (List[str]): List of documents to embed
+            **kwargs: Additional keyword arguments
+
+        Returns:
+            np.ndarray: Array of embeddings
+
+        Example:
+            >>> client = Client()
+            >>> docs = ["Hello world", "Goodbye world"]
+            >>> embeddings = client.embed(docs)
+            >>> embeddings.shape
+            (2, 768)  # Assuming 768-dimensional embeddings
+        """
 
         embed_docs = []
         for doc in docs:
@@ -178,7 +306,25 @@ class Client:
         return np.array(embeddings)
 
     def input(self, prompt: str, **kwargs) -> str:
-        """Sends a UserResponseRequest to the server and waits for a UserResponse."""
+        """Send a user response request and wait for response.
+
+        Args:
+            prompt (str): The prompt to show the user
+            **kwargs: Additional keyword arguments
+
+        Returns:
+            str: The user's response
+
+        Raises:
+            Exception: If there is an error or unexpected response
+
+        Example:
+            >>> client = Client()
+            >>> response = client.input("What is your name?")
+            What is your name? Alice
+            >>> print(response)
+            'Alice'
+        """
         # Create the UserResponseRequest message
         user_response_request = app_pb2.UserResponseRequest(
             id="user_response_request_1",
@@ -202,7 +348,20 @@ class Client:
             raise Exception("Unexpected response from server.")
 
     def print(self, message: str, **kwargs):
-        """Sends an AppMessage containing the message to the server."""
+        """Send a message to be displayed.
+
+        Args:
+            message (str): The message to display
+            **kwargs: Additional keyword arguments
+
+        Raises:
+            Exception: If there is an error response
+
+        Example:
+            >>> client = Client()
+            >>> client.print("Hello, world!")
+            Hello, world!
+        """
         # Create the Content message
         content = content_pb2.Content(
             content_type=content_pb2.Content.CONTENT_DEFAULT,
@@ -228,7 +387,20 @@ class Client:
             raise Exception(response.error.error)
 
     def error(self, message: str, **kwargs):
-        """Sends an ErrorRequest containing the error message to the server."""
+        """Send an error message.
+
+        Args:
+            message (str): The error message
+            **kwargs: Additional keyword arguments
+
+        Raises:
+            Exception: If there is an error response
+
+        Example:
+            >>> client = Client()
+            >>> client.error("Something went wrong!")
+            Error: Something went wrong!
+        """
         # Create the ErrorRequest message
         error_request = app_pb2.ErrorRequest(
             fatal=False,
@@ -248,19 +420,60 @@ class Client:
             raise Exception(response.error.error)
 
     def add_start_callback(self, cb: Callable[[], None]) -> str:
-        """Adds a start callback."""
+        """Add a callback to be called when generation starts.
+
+        Args:
+            cb (Callable[[], None]): The callback function
+
+        Returns:
+            str: ID of the registered callback
+
+        Example:
+            >>> client = Client()
+            >>> def on_start():
+            ...     print("Generation started!")
+            >>> callback_id = client.add_start_callback(on_start)
+            >>> print(isinstance(callback_id, str))
+            True
+        """
         callback_id = str(id(cb))
         self.start_cbs[callback_id] = cb
         return callback_id
 
     def add_stop_callback(self, cb: Callable[[], None]) -> str:
-        """Adds a stop callback."""
+        """Add a callback to be called when generation stops.
+
+        Args:
+            cb (Callable[[], None]): The callback function
+
+        Returns:
+            str: ID of the registered callback
+
+        Example:
+            >>> client = Client()
+            >>> def on_stop():
+            ...     print("Generation completed!")
+            >>> callback_id = client.add_stop_callback(on_stop)
+            >>> print(isinstance(callback_id, str))
+            True
+        """
         callback_id = str(id(cb))
         self.stop_cbs[callback_id] = cb
         return callback_id
 
     def remove_start_callback(self, cb_or_id: Callable[[], None] or str):
-        """Removes a start callback."""
+        """Remove a start callback.
+
+        Args:
+            cb_or_id (Union[Callable[[], None], str]): The callback function or its ID
+
+        Example:
+            >>> client = Client()
+            >>> def on_start():
+            ...     print("Generation started!")
+            >>> callback_id = client.add_start_callback(on_start)
+            >>> client.remove_start_callback(callback_id)
+        """
         if isinstance(cb_or_id, str):
             self.start_cbs.pop(cb_or_id, None)
         else:
@@ -268,7 +481,18 @@ class Client:
             self.start_cbs.pop(callback_id, None)
 
     def remove_stop_callback(self, cb_or_id: Callable[[], None] or str):
-        """Removes a stop callback."""
+        """Remove a stop callback.
+
+        Args:
+            cb_or_id (Union[Callable[[], None], str]): The callback function or its ID
+
+        Example:
+            >>> client = Client()
+            >>> def on_stop():
+            ...     print("Generation completed!")
+            >>> callback_id = client.add_stop_callback(on_stop)
+            >>> client.remove_stop_callback(callback_id)
+        """
         if isinstance(cb_or_id, str):
             self.stop_cbs.pop(cb_or_id, None)
         else:
