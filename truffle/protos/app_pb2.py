@@ -23,44 +23,60 @@ _sym_db = _symbol_database.Default()
 
 
 import content_pb2 as content__pb2
+import context_pb2 as context__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tapp.proto\x12\x03\x61pp\x1a\rcontent.proto\"\xeb\x01\n\nAppRequest\x12\x30\n\x10generate_request\x18\x01 \x01(\x0b\x32\x14.app.GenerateRequestH\x00\x12(\n\x0cstop_request\x18\x02 \x01(\x0b\x32\x10.app.StopRequestH\x00\x12.\n\x0cuser_request\x18\x03 \x01(\x0b\x32\x16.app.UserPromptRequestH\x00\x12\"\n\x07message\x18\x04 \x01(\x0b\x32\x0f.app.AppMessageH\x00\x12\"\n\x05\x66inal\x18\x05 \x01(\x0b\x32\x11.app.FinalRequestH\x00\x42\t\n\x07request\"e\n\x13StreamingGeneration\x12\x32\n\x0c\x63ontent_type\x18\x01 \x01(\x0e\x32\x1c.truffle.Content.ContentType\x12\x1a\n\x12\x61\x64\x64itional_content\x18\x02 \x01(\t\"\xbd\x03\n\x0fGenerateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06prompt\x18\x02 \x01(\t\x12\x12\n\nmax_tokens\x18\x03 \x01(\x05\x12\x1e\n\x11\x66requency_penalty\x18\x04 \x01(\x02H\x00\x88\x01\x01\x12\x1d\n\x10presence_penalty\x18\x05 \x01(\x02H\x01\x88\x01\x01\x12\x18\n\x0btemperature\x18\x06 \x01(\x02H\x02\x88\x01\x01\x12\x12\n\x05top_p\x18\x07 \x01(\x02H\x03\x88\x01\x01\x12\x1c\n\x0fresponse_format\x18\x08 \x01(\tH\x04\x88\x01\x01\x12\x1c\n\x0fresponse_schema\x18\t \x01(\tH\x05\x88\x01\x01\x12\x19\n\x0cstop_strings\x18\n \x01(\tH\x06\x88\x01\x01\x12-\n\x06stream\x18\x0b \x01(\x0b\x32\x18.app.StreamingGenerationH\x07\x88\x01\x01\x42\x14\n\x12_frequency_penaltyB\x13\n\x11_presence_penaltyB\x0e\n\x0c_temperatureB\x08\n\x06_top_pB\x12\n\x10_response_formatB\x12\n\x10_response_schemaB\x0f\n\r_stop_stringsB\t\n\x07_stream\"D\n\x11UserPromptRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\">\n\nAppMessage\x12\r\n\x05title\x18\x01 \x01(\t\x12!\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x10.truffle.Content\"B\n\x0c\x46inalRequest\x12!\n\x07\x63ontent\x18\x01 \x01(\x0b\x32\x10.truffle.Content\x12\x0f\n\x07metrics\x18\x02 \x01(\t\"\x19\n\x0bStopRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xa4\x01\n\x0b\x41ppResponse\x12\x30\n\x10initial_response\x18\x01 \x01(\x0b\x32\x14.app.InitialResponseH\x00\x12,\n\x0etoken_response\x18\x02 \x01(\x0b\x32\x12.app.TokenResponseH\x00\x12)\n\x0cuser_request\x18\x03 \x01(\x0b\x32\x11.app.UserResponseH\x00\x42\n\n\x08response\"/\n\x10GenerateResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"\x1f\n\x0fInitialResponse\x12\x0c\n\x04\x61rgs\x18\x01 \x01(\t\"\xcf\x02\n\rTokenResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12;\n\rfinish_reason\x18\x03 \x01(\x0e\x32\x1f.app.TokenResponse.FinishReasonH\x00\x88\x01\x01\x12,\n\x05usage\x18\x04 \x03(\x0b\x32\x1d.app.TokenResponse.UsageEntry\x1a,\n\nUsageEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"x\n\x0c\x46inishReason\x12\x1d\n\x19\x46INISH_REASON_UNSPECIFIED\x10\x00\x12\x18\n\x14\x46INISH_REASON_LENGTH\x10\x01\x12\x16\n\x12\x46INISH_REASON_STOP\x10\x02\x12\x17\n\x13\x46INISH_REASON_ERROR\x10\x03\x42\x10\n\x0e_finish_reason\",\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08response\x18\x02 \x01(\tB\x0fZ\rcore/protobufb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tapp.proto\x12\x03\x61pp\x1a\rcontent.proto\x1a\rcontext.proto\"\x99\x02\n\nAppRequest\x12\x30\n\x10generate_request\x18\x01 \x01(\x0b\x32\x14.app.GenerateRequestH\x00\x12(\n\x0cstop_request\x18\x02 \x01(\x0b\x32\x10.app.StopRequestH\x00\x12\x30\n\x0cuser_request\x18\x03 \x01(\x0b\x32\x18.app.UserResponseRequestH\x00\x12\"\n\x07message\x18\x04 \x01(\x0b\x32\x0f.app.AppMessageH\x00\x12\"\n\x05\x65rror\x18\x05 \x01(\x0b\x32\x11.app.ErrorRequestH\x00\x12*\n\rembed_request\x18\x06 \x01(\x0b\x32\x11.app.EmbedRequestH\x00\x42\t\n\x07request\"e\n\x13StreamingGeneration\x12\x32\n\x0c\x63ontent_type\x18\x01 \x01(\x0e\x32\x1c.truffle.Content.ContentType\x12\x1a\n\x12\x61\x64\x64itional_content\x18\x02 \x01(\t\"\xbf\x01\n\x16GenerateResponseFormat\x12:\n\x06\x66ormat\x18\x01 \x01(\x0e\x32*.app.GenerateResponseFormat.ResponseFormat\x12\x13\n\x06schema\x18\x02 \x01(\tH\x00\x88\x01\x01\"I\n\x0eResponseFormat\x12\x11\n\rRESPONSE_TEXT\x10\x00\x12\x11\n\rRESPONSE_JSON\x10\x01\x12\x11\n\rRESPONSE_EBNF\x10\x02\x42\t\n\x07_schema\"\xc2\x03\n\x0fGenerateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x06prompt\x18\x02 \x01(\tH\x00\x12#\n\x07\x63ontext\x18\x03 \x01(\x0b\x32\x10.app.PrevContextH\x00\x12\x12\n\nmax_tokens\x18\x04 \x01(\x05\x12-\n\x03\x66mt\x18\x05 \x01(\x0b\x32\x1b.app.GenerateResponseFormatH\x01\x88\x01\x01\x12\x18\n\x0btemperature\x18\x06 \x01(\x02H\x02\x88\x01\x01\x12\x1e\n\x11\x66requency_penalty\x18\x07 \x01(\x02H\x03\x88\x01\x01\x12\x1d\n\x10presence_penalty\x18\x08 \x01(\x02H\x04\x88\x01\x01\x12\x12\n\x05top_p\x18\t \x01(\x02H\x05\x88\x01\x01\x12-\n\x06stream\x18\n \x01(\x0b\x32\x18.app.StreamingGenerationH\x06\x88\x01\x01\x12\x19\n\x0cstop_strings\x18\x0b \x01(\tH\x07\x88\x01\x01\x42\t\n\x07\x63ontentB\x06\n\x04_fmtB\x0e\n\x0c_temperatureB\x14\n\x12_frequency_penaltyB\x13\n\x11_presence_penaltyB\x08\n\x06_top_pB\t\n\x07_streamB\x0f\n\r_stop_strings\"\'\n\tEmbedding\x12\x0c\n\x04size\x18\x01 \x01(\x05\x12\x0c\n\x04\x64\x61ta\x18\x02 \x03(\x02\">\n\x08\x45mbedDoc\x12\x0b\n\x03\x64oc\x18\x01 \x01(\t\x12\x0b\n\x03tag\x18\x02 \x01(\t\x12\x10\n\x03sim\x18\x03 \x01(\x02H\x00\x88\x01\x01\x42\x06\n\x04_sim\"\x82\x01\n\rEmbedResponse\x12\x18\n\x10\x65mbed_request_id\x18\x01 \x01(\t\x12!\n\tembedding\x18\x02 \x03(\x0b\x32\x0e.app.Embedding\x12\x14\n\x0cnum_affected\x18\x03 \x01(\x05\x12\x1e\n\x07results\x18\x04 \x03(\x0b\x32\r.app.EmbedDoc\"\x86\x02\n\x0c\x45mbedRequest\x12\x18\n\x10\x65mbed_request_id\x18\x01 \x01(\t\x12*\n\x02op\x18\x02 \x01(\x0e\x32\x1e.app.EmbedRequest.EmbedQueryOp\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x16\n\tquery_tag\x18\x04 \x01(\tH\x00\x88\x01\x01\x12\x1b\n\x04\x64ocs\x18\x05 \x03(\x0b\x32\r.app.EmbedDoc\"^\n\x0c\x45mbedQueryOp\x12\x10\n\x0c\x45Q_UNDEFINED\x10\x00\x12\x0c\n\x08\x45Q_STORE\x10\x01\x12\x0e\n\nEQ_GET_SIM\x10\x02\x12\x0e\n\nEQ_DEL_SIM\x10\x03\x12\x0e\n\nEQ_GET_RAW\x10\x04\x42\x0c\n\n_query_tag\"1\n\x13UserResponseRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06reason\x18\x02 \x01(\t\"B\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08response\x18\x02 \x01(\t\x12\x14\n\x0cinterjection\x18\x03 \x01(\x08\"X\n\nAppMessage\x12\x16\n\x0e\x61pp_message_id\x18\x01 \x01(\t\x12!\n\x07\x63ontent\x18\x02 \x01(\x0b\x32\x10.truffle.Content\x12\x0f\n\x07partial\x18\x03 \x01(\x08\"=\n\x0c\x45rrorRequest\x12\r\n\x05\x66\x61tal\x18\x01 \x01(\x08\x12\r\n\x05\x65rror\x18\x02 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x03 \x01(\t\"\x19\n\x0bStopRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xd2\x01\n\x0b\x41ppResponse\x12\x30\n\x10initial_response\x18\x01 \x01(\x0b\x32\x14.app.InitialResponseH\x00\x12,\n\x0etoken_response\x18\x02 \x01(\x0b\x32\x12.app.TokenResponseH\x00\x12)\n\x0cuser_request\x18\x03 \x01(\x0b\x32\x11.app.UserResponseH\x00\x12,\n\x0e\x65mbed_response\x18\x04 \x01(\x0b\x32\x12.app.EmbedResponseH\x00\x42\n\n\x08response\"*\n\x0c\x41ttachedFile\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04path\x18\x02 \x01(\t\"\xcf\x01\n\x0fInitialResponse\x12,\n\x04\x61rgs\x18\x01 \x03(\x0b\x32\x1e.app.InitialResponse.ArgsEntry\x12$\n\x04\x66ile\x18\x02 \x01(\x0b\x32\x11.app.AttachedFileH\x00\x88\x01\x01\x12&\n\x07\x63ontext\x18\x03 \x01(\x0b\x32\x10.app.PrevContextH\x01\x88\x01\x01\x1a+\n\tArgsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x07\n\x05_fileB\n\n\x08_context\"X\n\x0fGenerationUsage\x12\x15\n\rprompt_tokens\x18\x01 \x01(\x05\x12\x19\n\x11\x63ompletion_tokens\x18\x02 \x01(\x05\x12\x13\n\x0b\x61pprox_time\x18\x03 \x01(\x05\"\xde\x02\n\rTokenResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05token\x18\x02 \x01(\t\x12;\n\rfinish_reason\x18\x03 \x01(\x0e\x32\x1f.app.TokenResponse.FinishReasonH\x00\x88\x01\x01\x12(\n\x05usage\x18\x04 \x01(\x0b\x32\x14.app.GenerationUsageH\x01\x88\x01\x01\x12\x12\n\x05\x65rror\x18\x05 \x01(\tH\x02\x88\x01\x01\"\x90\x01\n\x0c\x46inishReason\x12\x1d\n\x19\x46INISH_REASON_UNSPECIFIED\x10\x00\x12\x18\n\x14\x46INISH_REASON_LENGTH\x10\x01\x12\x16\n\x12\x46INISH_REASON_STOP\x10\x02\x12\x17\n\x13\x46INISH_REASON_ERROR\x10\x03\x12\x16\n\x12\x46INISH_REASON_USER\x10\x04\x42\x10\n\x0e_finish_reasonB\x08\n\x06_usageB\x08\n\x06_errorb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'app_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  _globals['DESCRIPTOR']._loaded_options = None
-  _globals['DESCRIPTOR']._serialized_options = b'Z\rcore/protobuf'
-  _globals['_TOKENRESPONSE_USAGEENTRY']._loaded_options = None
-  _globals['_TOKENRESPONSE_USAGEENTRY']._serialized_options = b'8\001'
-  _globals['_APPREQUEST']._serialized_start=34
-  _globals['_APPREQUEST']._serialized_end=269
-  _globals['_STREAMINGGENERATION']._serialized_start=271
-  _globals['_STREAMINGGENERATION']._serialized_end=372
-  _globals['_GENERATEREQUEST']._serialized_start=375
-  _globals['_GENERATEREQUEST']._serialized_end=820
-  _globals['_USERPROMPTREQUEST']._serialized_start=822
-  _globals['_USERPROMPTREQUEST']._serialized_end=890
-  _globals['_APPMESSAGE']._serialized_start=892
-  _globals['_APPMESSAGE']._serialized_end=954
-  _globals['_FINALREQUEST']._serialized_start=956
-  _globals['_FINALREQUEST']._serialized_end=1022
-  _globals['_STOPREQUEST']._serialized_start=1024
-  _globals['_STOPREQUEST']._serialized_end=1049
-  _globals['_APPRESPONSE']._serialized_start=1052
-  _globals['_APPRESPONSE']._serialized_end=1216
-  _globals['_GENERATERESPONSE']._serialized_start=1218
-  _globals['_GENERATERESPONSE']._serialized_end=1265
-  _globals['_INITIALRESPONSE']._serialized_start=1267
-  _globals['_INITIALRESPONSE']._serialized_end=1298
-  _globals['_TOKENRESPONSE']._serialized_start=1301
-  _globals['_TOKENRESPONSE']._serialized_end=1636
-  _globals['_TOKENRESPONSE_USAGEENTRY']._serialized_start=1452
-  _globals['_TOKENRESPONSE_USAGEENTRY']._serialized_end=1496
-  _globals['_TOKENRESPONSE_FINISHREASON']._serialized_start=1498
-  _globals['_TOKENRESPONSE_FINISHREASON']._serialized_end=1618
-  _globals['_USERRESPONSE']._serialized_start=1638
-  _globals['_USERRESPONSE']._serialized_end=1682
+  DESCRIPTOR._loaded_options = None
+  _globals['_INITIALRESPONSE_ARGSENTRY']._loaded_options = None
+  _globals['_INITIALRESPONSE_ARGSENTRY']._serialized_options = b'8\001'
+  _globals['_APPREQUEST']._serialized_start=49
+  _globals['_APPREQUEST']._serialized_end=330
+  _globals['_STREAMINGGENERATION']._serialized_start=332
+  _globals['_STREAMINGGENERATION']._serialized_end=433
+  _globals['_GENERATERESPONSEFORMAT']._serialized_start=436
+  _globals['_GENERATERESPONSEFORMAT']._serialized_end=627
+  _globals['_GENERATERESPONSEFORMAT_RESPONSEFORMAT']._serialized_start=543
+  _globals['_GENERATERESPONSEFORMAT_RESPONSEFORMAT']._serialized_end=616
+  _globals['_GENERATEREQUEST']._serialized_start=630
+  _globals['_GENERATEREQUEST']._serialized_end=1080
+  _globals['_EMBEDDING']._serialized_start=1082
+  _globals['_EMBEDDING']._serialized_end=1121
+  _globals['_EMBEDDOC']._serialized_start=1123
+  _globals['_EMBEDDOC']._serialized_end=1185
+  _globals['_EMBEDRESPONSE']._serialized_start=1188
+  _globals['_EMBEDRESPONSE']._serialized_end=1318
+  _globals['_EMBEDREQUEST']._serialized_start=1321
+  _globals['_EMBEDREQUEST']._serialized_end=1583
+  _globals['_EMBEDREQUEST_EMBEDQUERYOP']._serialized_start=1475
+  _globals['_EMBEDREQUEST_EMBEDQUERYOP']._serialized_end=1569
+  _globals['_USERRESPONSEREQUEST']._serialized_start=1585
+  _globals['_USERRESPONSEREQUEST']._serialized_end=1634
+  _globals['_USERRESPONSE']._serialized_start=1636
+  _globals['_USERRESPONSE']._serialized_end=1702
+  _globals['_APPMESSAGE']._serialized_start=1704
+  _globals['_APPMESSAGE']._serialized_end=1792
+  _globals['_ERRORREQUEST']._serialized_start=1794
+  _globals['_ERRORREQUEST']._serialized_end=1855
+  _globals['_STOPREQUEST']._serialized_start=1857
+  _globals['_STOPREQUEST']._serialized_end=1882
+  _globals['_APPRESPONSE']._serialized_start=1885
+  _globals['_APPRESPONSE']._serialized_end=2095
+  _globals['_ATTACHEDFILE']._serialized_start=2097
+  _globals['_ATTACHEDFILE']._serialized_end=2139
+  _globals['_INITIALRESPONSE']._serialized_start=2142
+  _globals['_INITIALRESPONSE']._serialized_end=2349
+  _globals['_INITIALRESPONSE_ARGSENTRY']._serialized_start=2285
+  _globals['_INITIALRESPONSE_ARGSENTRY']._serialized_end=2328
+  _globals['_GENERATIONUSAGE']._serialized_start=2351
+  _globals['_GENERATIONUSAGE']._serialized_end=2439
+  _globals['_TOKENRESPONSE']._serialized_start=2442
+  _globals['_TOKENRESPONSE']._serialized_end=2792
+  _globals['_TOKENRESPONSE_FINISHREASON']._serialized_start=2610
+  _globals['_TOKENRESPONSE_FINISHREASON']._serialized_end=2754
 # @@protoc_insertion_point(module_scope)

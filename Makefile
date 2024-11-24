@@ -1,9 +1,9 @@
 .PHONY: protos install dev test help init
 
 # Directory paths
-MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+MAKEFILE_DIR := '.'
 PROTO_BASE_DIR = $(MAKEFILE_DIR)/truffleos-protobuf
-PROTO_OUTPUT_DIR = $(MAKEFILE_DIR)/truffle_cli/protos
+PROTO_OUTPUT_DIR = $(MAKEFILE_DIR)/truffle/protos
 
 # OS-specific commands
 ifeq ($(OS),Windows_NT)
@@ -21,7 +21,7 @@ init:
 all: init protos
 
 protos:
-	make -f $(PROTO_BASE_DIR)/Makefile python OVERRIDE_OUT_DIR=$(PROTO_OUTPUT_DIR)
+	protoc -Itruffleos-protobuf --python_out=./truffle/protos --pyi_out=./truffle/protos $(PROTO_BASE_DIR)/*.proto
 
 # Install dependencies
 install: protos
