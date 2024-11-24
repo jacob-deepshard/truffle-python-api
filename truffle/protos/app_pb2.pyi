@@ -4,12 +4,25 @@ from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import (
+    ClassVar as _ClassVar,
+    Iterable as _Iterable,
+    Mapping as _Mapping,
+    Optional as _Optional,
+    Union as _Union,
+)
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class AppRequest(_message.Message):
-    __slots__ = ("generate_request", "stop_request", "user_request", "message", "error", "embed_request")
+    __slots__ = (
+        "generate_request",
+        "stop_request",
+        "user_request",
+        "message",
+        "error",
+        "embed_request",
+    )
     GENERATE_REQUEST_FIELD_NUMBER: _ClassVar[int]
     STOP_REQUEST_FIELD_NUMBER: _ClassVar[int]
     USER_REQUEST_FIELD_NUMBER: _ClassVar[int]
@@ -22,7 +35,15 @@ class AppRequest(_message.Message):
     message: AppMessage
     error: ErrorRequest
     embed_request: EmbedRequest
-    def __init__(self, generate_request: _Optional[_Union[GenerateRequest, _Mapping]] = ..., stop_request: _Optional[_Union[StopRequest, _Mapping]] = ..., user_request: _Optional[_Union[UserResponseRequest, _Mapping]] = ..., message: _Optional[_Union[AppMessage, _Mapping]] = ..., error: _Optional[_Union[ErrorRequest, _Mapping]] = ..., embed_request: _Optional[_Union[EmbedRequest, _Mapping]] = ...) -> None: ...
+    def __init__(
+        self,
+        generate_request: _Optional[_Union[GenerateRequest, _Mapping]] = ...,
+        stop_request: _Optional[_Union[StopRequest, _Mapping]] = ...,
+        user_request: _Optional[_Union[UserResponseRequest, _Mapping]] = ...,
+        message: _Optional[_Union[AppMessage, _Mapping]] = ...,
+        error: _Optional[_Union[ErrorRequest, _Mapping]] = ...,
+        embed_request: _Optional[_Union[EmbedRequest, _Mapping]] = ...,
+    ) -> None: ...
 
 class StreamingGeneration(_message.Message):
     __slots__ = ("content_type", "additional_content")
@@ -30,15 +51,21 @@ class StreamingGeneration(_message.Message):
     ADDITIONAL_CONTENT_FIELD_NUMBER: _ClassVar[int]
     content_type: _content_pb2.Content.ContentType
     additional_content: str
-    def __init__(self, content_type: _Optional[_Union[_content_pb2.Content.ContentType, str]] = ..., additional_content: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        content_type: _Optional[_Union[_content_pb2.Content.ContentType, str]] = ...,
+        additional_content: _Optional[str] = ...,
+    ) -> None: ...
 
 class GenerateResponseFormat(_message.Message):
     __slots__ = ("format", "schema")
+
     class ResponseFormat(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         RESPONSE_TEXT: _ClassVar[GenerateResponseFormat.ResponseFormat]
         RESPONSE_JSON: _ClassVar[GenerateResponseFormat.ResponseFormat]
         RESPONSE_EBNF: _ClassVar[GenerateResponseFormat.ResponseFormat]
+
     RESPONSE_TEXT: GenerateResponseFormat.ResponseFormat
     RESPONSE_JSON: GenerateResponseFormat.ResponseFormat
     RESPONSE_EBNF: GenerateResponseFormat.ResponseFormat
@@ -46,10 +73,26 @@ class GenerateResponseFormat(_message.Message):
     SCHEMA_FIELD_NUMBER: _ClassVar[int]
     format: GenerateResponseFormat.ResponseFormat
     schema: str
-    def __init__(self, format: _Optional[_Union[GenerateResponseFormat.ResponseFormat, str]] = ..., schema: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        format: _Optional[_Union[GenerateResponseFormat.ResponseFormat, str]] = ...,
+        schema: _Optional[str] = ...,
+    ) -> None: ...
 
 class GenerateRequest(_message.Message):
-    __slots__ = ("id", "prompt", "context", "max_tokens", "fmt", "temperature", "frequency_penalty", "presence_penalty", "top_p", "stream", "stop_strings")
+    __slots__ = (
+        "id",
+        "prompt",
+        "context",
+        "max_tokens",
+        "fmt",
+        "temperature",
+        "frequency_penalty",
+        "presence_penalty",
+        "top_p",
+        "stream",
+        "stop_strings",
+    )
     ID_FIELD_NUMBER: _ClassVar[int]
     PROMPT_FIELD_NUMBER: _ClassVar[int]
     CONTEXT_FIELD_NUMBER: _ClassVar[int]
@@ -72,7 +115,20 @@ class GenerateRequest(_message.Message):
     top_p: float
     stream: StreamingGeneration
     stop_strings: str
-    def __init__(self, id: _Optional[str] = ..., prompt: _Optional[str] = ..., context: _Optional[_Union[_context_pb2.PrevContext, _Mapping]] = ..., max_tokens: _Optional[int] = ..., fmt: _Optional[_Union[GenerateResponseFormat, _Mapping]] = ..., temperature: _Optional[float] = ..., frequency_penalty: _Optional[float] = ..., presence_penalty: _Optional[float] = ..., top_p: _Optional[float] = ..., stream: _Optional[_Union[StreamingGeneration, _Mapping]] = ..., stop_strings: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        id: _Optional[str] = ...,
+        prompt: _Optional[str] = ...,
+        context: _Optional[_Union[_context_pb2.PrevContext, _Mapping]] = ...,
+        max_tokens: _Optional[int] = ...,
+        fmt: _Optional[_Union[GenerateResponseFormat, _Mapping]] = ...,
+        temperature: _Optional[float] = ...,
+        frequency_penalty: _Optional[float] = ...,
+        presence_penalty: _Optional[float] = ...,
+        top_p: _Optional[float] = ...,
+        stream: _Optional[_Union[StreamingGeneration, _Mapping]] = ...,
+        stop_strings: _Optional[str] = ...,
+    ) -> None: ...
 
 class Embedding(_message.Message):
     __slots__ = ("size", "data")
@@ -80,7 +136,9 @@ class Embedding(_message.Message):
     DATA_FIELD_NUMBER: _ClassVar[int]
     size: int
     data: _containers.RepeatedScalarFieldContainer[float]
-    def __init__(self, size: _Optional[int] = ..., data: _Optional[_Iterable[float]] = ...) -> None: ...
+    def __init__(
+        self, size: _Optional[int] = ..., data: _Optional[_Iterable[float]] = ...
+    ) -> None: ...
 
 class EmbedDoc(_message.Message):
     __slots__ = ("doc", "tag", "sim")
@@ -90,7 +148,9 @@ class EmbedDoc(_message.Message):
     doc: str
     tag: str
     sim: float
-    def __init__(self, doc: _Optional[str] = ..., tag: _Optional[str] = ..., sim: _Optional[float] = ...) -> None: ...
+    def __init__(
+        self, doc: _Optional[str] = ..., tag: _Optional[str] = ..., sim: _Optional[float] = ...
+    ) -> None: ...
 
 class EmbedResponse(_message.Message):
     __slots__ = ("embed_request_id", "embedding", "num_affected", "results")
@@ -102,10 +162,17 @@ class EmbedResponse(_message.Message):
     embedding: _containers.RepeatedCompositeFieldContainer[Embedding]
     num_affected: int
     results: _containers.RepeatedCompositeFieldContainer[EmbedDoc]
-    def __init__(self, embed_request_id: _Optional[str] = ..., embedding: _Optional[_Iterable[_Union[Embedding, _Mapping]]] = ..., num_affected: _Optional[int] = ..., results: _Optional[_Iterable[_Union[EmbedDoc, _Mapping]]] = ...) -> None: ...
+    def __init__(
+        self,
+        embed_request_id: _Optional[str] = ...,
+        embedding: _Optional[_Iterable[_Union[Embedding, _Mapping]]] = ...,
+        num_affected: _Optional[int] = ...,
+        results: _Optional[_Iterable[_Union[EmbedDoc, _Mapping]]] = ...,
+    ) -> None: ...
 
 class EmbedRequest(_message.Message):
     __slots__ = ("embed_request_id", "op", "limit", "query_tag", "docs")
+
     class EmbedQueryOp(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         EQ_UNDEFINED: _ClassVar[EmbedRequest.EmbedQueryOp]
@@ -113,6 +180,7 @@ class EmbedRequest(_message.Message):
         EQ_GET_SIM: _ClassVar[EmbedRequest.EmbedQueryOp]
         EQ_DEL_SIM: _ClassVar[EmbedRequest.EmbedQueryOp]
         EQ_GET_RAW: _ClassVar[EmbedRequest.EmbedQueryOp]
+
     EQ_UNDEFINED: EmbedRequest.EmbedQueryOp
     EQ_STORE: EmbedRequest.EmbedQueryOp
     EQ_GET_SIM: EmbedRequest.EmbedQueryOp
@@ -128,7 +196,14 @@ class EmbedRequest(_message.Message):
     limit: int
     query_tag: str
     docs: _containers.RepeatedCompositeFieldContainer[EmbedDoc]
-    def __init__(self, embed_request_id: _Optional[str] = ..., op: _Optional[_Union[EmbedRequest.EmbedQueryOp, str]] = ..., limit: _Optional[int] = ..., query_tag: _Optional[str] = ..., docs: _Optional[_Iterable[_Union[EmbedDoc, _Mapping]]] = ...) -> None: ...
+    def __init__(
+        self,
+        embed_request_id: _Optional[str] = ...,
+        op: _Optional[_Union[EmbedRequest.EmbedQueryOp, str]] = ...,
+        limit: _Optional[int] = ...,
+        query_tag: _Optional[str] = ...,
+        docs: _Optional[_Iterable[_Union[EmbedDoc, _Mapping]]] = ...,
+    ) -> None: ...
 
 class UserResponseRequest(_message.Message):
     __slots__ = ("id", "reason")
@@ -146,7 +221,9 @@ class UserResponse(_message.Message):
     id: str
     response: str
     interjection: bool
-    def __init__(self, id: _Optional[str] = ..., response: _Optional[str] = ..., interjection: bool = ...) -> None: ...
+    def __init__(
+        self, id: _Optional[str] = ..., response: _Optional[str] = ..., interjection: bool = ...
+    ) -> None: ...
 
 class AppMessage(_message.Message):
     __slots__ = ("app_message_id", "content", "partial")
@@ -156,7 +233,12 @@ class AppMessage(_message.Message):
     app_message_id: str
     content: _content_pb2.Content
     partial: bool
-    def __init__(self, app_message_id: _Optional[str] = ..., content: _Optional[_Union[_content_pb2.Content, _Mapping]] = ..., partial: bool = ...) -> None: ...
+    def __init__(
+        self,
+        app_message_id: _Optional[str] = ...,
+        content: _Optional[_Union[_content_pb2.Content, _Mapping]] = ...,
+        partial: bool = ...,
+    ) -> None: ...
 
 class ErrorRequest(_message.Message):
     __slots__ = ("fatal", "error", "details")
@@ -166,7 +248,9 @@ class ErrorRequest(_message.Message):
     fatal: bool
     error: str
     details: str
-    def __init__(self, fatal: bool = ..., error: _Optional[str] = ..., details: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self, fatal: bool = ..., error: _Optional[str] = ..., details: _Optional[str] = ...
+    ) -> None: ...
 
 class StopRequest(_message.Message):
     __slots__ = ("id",)
@@ -184,7 +268,13 @@ class AppResponse(_message.Message):
     token_response: TokenResponse
     user_request: UserResponse
     embed_response: EmbedResponse
-    def __init__(self, initial_response: _Optional[_Union[InitialResponse, _Mapping]] = ..., token_response: _Optional[_Union[TokenResponse, _Mapping]] = ..., user_request: _Optional[_Union[UserResponse, _Mapping]] = ..., embed_response: _Optional[_Union[EmbedResponse, _Mapping]] = ...) -> None: ...
+    def __init__(
+        self,
+        initial_response: _Optional[_Union[InitialResponse, _Mapping]] = ...,
+        token_response: _Optional[_Union[TokenResponse, _Mapping]] = ...,
+        user_request: _Optional[_Union[UserResponse, _Mapping]] = ...,
+        embed_response: _Optional[_Union[EmbedResponse, _Mapping]] = ...,
+    ) -> None: ...
 
 class AttachedFile(_message.Message):
     __slots__ = ("name", "path")
@@ -196,6 +286,7 @@ class AttachedFile(_message.Message):
 
 class InitialResponse(_message.Message):
     __slots__ = ("args", "file", "context")
+
     class ArgsEntry(_message.Message):
         __slots__ = ("key", "value")
         KEY_FIELD_NUMBER: _ClassVar[int]
@@ -203,13 +294,19 @@ class InitialResponse(_message.Message):
         key: str
         value: str
         def __init__(self, key: _Optional[str] = ..., value: _Optional[str] = ...) -> None: ...
+
     ARGS_FIELD_NUMBER: _ClassVar[int]
     FILE_FIELD_NUMBER: _ClassVar[int]
     CONTEXT_FIELD_NUMBER: _ClassVar[int]
     args: _containers.ScalarMap[str, str]
     file: AttachedFile
     context: _context_pb2.PrevContext
-    def __init__(self, args: _Optional[_Mapping[str, str]] = ..., file: _Optional[_Union[AttachedFile, _Mapping]] = ..., context: _Optional[_Union[_context_pb2.PrevContext, _Mapping]] = ...) -> None: ...
+    def __init__(
+        self,
+        args: _Optional[_Mapping[str, str]] = ...,
+        file: _Optional[_Union[AttachedFile, _Mapping]] = ...,
+        context: _Optional[_Union[_context_pb2.PrevContext, _Mapping]] = ...,
+    ) -> None: ...
 
 class GenerationUsage(_message.Message):
     __slots__ = ("prompt_tokens", "completion_tokens", "approx_time")
@@ -219,10 +316,16 @@ class GenerationUsage(_message.Message):
     prompt_tokens: int
     completion_tokens: int
     approx_time: int
-    def __init__(self, prompt_tokens: _Optional[int] = ..., completion_tokens: _Optional[int] = ..., approx_time: _Optional[int] = ...) -> None: ...
+    def __init__(
+        self,
+        prompt_tokens: _Optional[int] = ...,
+        completion_tokens: _Optional[int] = ...,
+        approx_time: _Optional[int] = ...,
+    ) -> None: ...
 
 class TokenResponse(_message.Message):
     __slots__ = ("id", "token", "finish_reason", "usage", "error")
+
     class FinishReason(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         FINISH_REASON_UNSPECIFIED: _ClassVar[TokenResponse.FinishReason]
@@ -230,6 +333,7 @@ class TokenResponse(_message.Message):
         FINISH_REASON_STOP: _ClassVar[TokenResponse.FinishReason]
         FINISH_REASON_ERROR: _ClassVar[TokenResponse.FinishReason]
         FINISH_REASON_USER: _ClassVar[TokenResponse.FinishReason]
+
     FINISH_REASON_UNSPECIFIED: TokenResponse.FinishReason
     FINISH_REASON_LENGTH: TokenResponse.FinishReason
     FINISH_REASON_STOP: TokenResponse.FinishReason
@@ -245,4 +349,11 @@ class TokenResponse(_message.Message):
     finish_reason: TokenResponse.FinishReason
     usage: GenerationUsage
     error: str
-    def __init__(self, id: _Optional[str] = ..., token: _Optional[str] = ..., finish_reason: _Optional[_Union[TokenResponse.FinishReason, str]] = ..., usage: _Optional[_Union[GenerationUsage, _Mapping]] = ..., error: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        id: _Optional[str] = ...,
+        token: _Optional[str] = ...,
+        finish_reason: _Optional[_Union[TokenResponse.FinishReason, str]] = ...,
+        usage: _Optional[_Union[GenerationUsage, _Mapping]] = ...,
+        error: _Optional[str] = ...,
+    ) -> None: ...

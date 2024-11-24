@@ -1,7 +1,12 @@
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from typing import (
+    ClassVar as _ClassVar,
+    Mapping as _Mapping,
+    Optional as _Optional,
+    Union as _Union,
+)
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -35,7 +40,12 @@ class FileContent(_message.Message):
     filename: str
     filesize: int
     file_id: str
-    def __init__(self, filename: _Optional[str] = ..., filesize: _Optional[int] = ..., file_id: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        filename: _Optional[str] = ...,
+        filesize: _Optional[int] = ...,
+        file_id: _Optional[str] = ...,
+    ) -> None: ...
 
 class MediaContent(_message.Message):
     __slots__ = ("metadata", "data")
@@ -47,11 +57,13 @@ class MediaContent(_message.Message):
 
 class RichContent(_message.Message):
     __slots__ = ("type", "content")
+
     class RichContentType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         RICHCONTENT_DEFAULT: _ClassVar[RichContent.RichContentType]
         RICHCONTENT_MARKDOWN: _ClassVar[RichContent.RichContentType]
         RICHCONTENT_UNKNOWN: _ClassVar[RichContent.RichContentType]
+
     RICHCONTENT_DEFAULT: RichContent.RichContentType
     RICHCONTENT_MARKDOWN: RichContent.RichContentType
     RICHCONTENT_UNKNOWN: RichContent.RichContentType
@@ -59,7 +71,11 @@ class RichContent(_message.Message):
     CONTENT_FIELD_NUMBER: _ClassVar[int]
     type: RichContent.RichContentType
     content: str
-    def __init__(self, type: _Optional[_Union[RichContent.RichContentType, str]] = ..., content: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        type: _Optional[_Union[RichContent.RichContentType, str]] = ...,
+        content: _Optional[str] = ...,
+    ) -> None: ...
 
 class ToolUse(_message.Message):
     __slots__ = ("name", "description", "has_response", "tool_icon_name")
@@ -71,10 +87,17 @@ class ToolUse(_message.Message):
     description: str
     has_response: bool
     tool_icon_name: str
-    def __init__(self, name: _Optional[str] = ..., description: _Optional[str] = ..., has_response: bool = ..., tool_icon_name: _Optional[str] = ...) -> None: ...
+    def __init__(
+        self,
+        name: _Optional[str] = ...,
+        description: _Optional[str] = ...,
+        has_response: bool = ...,
+        tool_icon_name: _Optional[str] = ...,
+    ) -> None: ...
 
 class Content(_message.Message):
     __slots__ = ("type", "code", "rtf", "media", "text", "error", "file", "tool_use")
+
     class ContentType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
         __slots__ = ()
         CONTENT_DEFAULT: _ClassVar[Content.ContentType]
@@ -84,6 +107,7 @@ class Content(_message.Message):
         CONTENT_ERROR: _ClassVar[Content.ContentType]
         CONTENT_OTHER: _ClassVar[Content.ContentType]
         CONTENT_FILE: _ClassVar[Content.ContentType]
+
     CONTENT_DEFAULT: Content.ContentType
     CONTENT_CODE: Content.ContentType
     CONTENT_MEDIA: Content.ContentType
@@ -107,4 +131,14 @@ class Content(_message.Message):
     error: ErrorContent
     file: FileContent
     tool_use: ToolUse
-    def __init__(self, type: _Optional[_Union[Content.ContentType, str]] = ..., code: _Optional[_Union[CodeContent, _Mapping]] = ..., rtf: _Optional[_Union[RichContent, _Mapping]] = ..., media: _Optional[_Union[MediaContent, _Mapping]] = ..., text: _Optional[_Union[TextContent, _Mapping]] = ..., error: _Optional[_Union[ErrorContent, _Mapping]] = ..., file: _Optional[_Union[FileContent, _Mapping]] = ..., tool_use: _Optional[_Union[ToolUse, _Mapping]] = ...) -> None: ...
+    def __init__(
+        self,
+        type: _Optional[_Union[Content.ContentType, str]] = ...,
+        code: _Optional[_Union[CodeContent, _Mapping]] = ...,
+        rtf: _Optional[_Union[RichContent, _Mapping]] = ...,
+        media: _Optional[_Union[MediaContent, _Mapping]] = ...,
+        text: _Optional[_Union[TextContent, _Mapping]] = ...,
+        error: _Optional[_Union[ErrorContent, _Mapping]] = ...,
+        file: _Optional[_Union[FileContent, _Mapping]] = ...,
+        tool_use: _Optional[_Union[ToolUse, _Mapping]] = ...,
+    ) -> None: ...

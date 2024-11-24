@@ -9,13 +9,9 @@ from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import runtime_version as _runtime_version
 from google.protobuf import symbol_database as _symbol_database
 from google.protobuf.internal import builder as _builder
+
 _runtime_version.ValidateProtobufRuntimeVersion(
-    _runtime_version.Domain.PUBLIC,
-    5,
-    28,
-    3,
-    '',
-    'firmware.proto'
+    _runtime_version.Domain.PUBLIC, 5, 28, 3, "", "firmware.proto"
 )
 # @@protoc_insertion_point(imports)
 
@@ -25,49 +21,51 @@ _sym_db = _symbol_database.Default()
 import content_pb2 as content__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x66irmware.proto\x12\x08\x66irmware\x1a\rcontent.proto\"\xd7\x02\n\nSystemInfo\x12\x11\n\twifi_ssid\x18\x01 \x01(\t\x12\x11\n\twifi_rssi\x18\x02 \x01(\x03\x12\x11\n\tled_color\x18\x03 \x01(\x05\x12\x1a\n\x12last_authenticated\x18\x04 \x01(\x03\x12\x14\n\x0ctruffle_name\x18\x05 \x01(\t\x12\x16\n\x0e\x64\x65veloper_mode\x18\x06 \x01(\x08\x12:\n\x0enetwork_status\x18\x07 \x01(\x0e\x32\".firmware.SystemInfo.NetworkStatus\x12)\n\x0e\x61vailable_apps\x18\x08 \x03(\x0b\x32\x11.firmware.AppInfo\"_\n\rNetworkStatus\x12\x0f\n\x0bNET_DEFAULT\x10\x00\x12\x15\n\x11NET_NOT_CONNECTED\x10\x01\x12\x13\n\x0fNET_NO_INTERNET\x10\x02\x12\x11\n\rNET_CONNECTED\x10\x03\"L\n\x0eSearchResponse\x12\x11\n\tsearch_id\x18\x01 \x01(\t\x12\'\n\x07results\x18\x02 \x03(\x0b\x32\x16.firmware.SearchResult\"d\n\x07\x41ppInfo\x12\x15\n\rapp_icon_name\x18\x01 \x01(\t\x12\x10\n\x08\x61pp_name\x18\x02 \x01(\t\x12\x17\n\x0f\x61pp_description\x18\x03 \x01(\t\x12\x17\n\x0fthird_party_app\x18\x04 \x01(\x08\"J\n\x14PromptClassification\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12\x1f\n\x04\x61pps\x18\x02 \x03(\x0b\x32\x11.firmware.AppInfo\"\xb9\x01\n\x13UserResponseRequest\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12\x0e\n\x06urr_id\x18\x02 \x01(\t\x12\x0e\n\x06reason\x18\x03 \x01(\t\x12\x37\n\x04type\x18\x04 \x01(\x0e\x32).firmware.UserResponseRequest.RequestType\"6\n\x0bRequestType\x12\x13\n\x0f\x44\x45\x46\x41ULT_REQUEST\x10\x00\x12\x12\n\x0eINLINE_REQUEST\x10\x01\"\xe2\x03\n\nPromptInfo\x12\x31\n\x06status\x18\x01 \x01(\x0e\x32!.firmware.PromptInfo.PromptStatus\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08subtitle\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.firmware.PromptInfo.PromptType\x12(\n\x08\x61pp_info\x18\x05 \x01(\x0b\x32\x11.firmware.AppInfoH\x00\x88\x01\x01\"]\n\nPromptType\x12\x10\n\x0cTYPE_DEFAULT\x10\x00\x12\r\n\tTYPE_CHAT\x10\x01\x12\r\n\tTYPE_TASK\x10\x02\x12\x0f\n\x0bTYPE_BGTASK\x10\x03\x12\x0e\n\nTYPE_OTHER\x10\x04\"\xba\x01\n\x0cPromptStatus\x12\x13\n\x0fPROMPT_STARTING\x10\x00\x12\x16\n\x12PROMPT_LOADING_APP\x10\x01\x12\x1d\n\x19PROMPT_NEED_USER_RESPONSE\x10\x02\x12\x1c\n\x18PROMPT_IN_APP_ENVIROMENT\x10\x03\x12\x10\n\x0cPROMPT_ERROR\x10\x04\x12\x16\n\x12PROMPT_UNAVAILABLE\x10\x05\x12\x16\n\x12PROMPT_HAS_RESULTS\x10\x06\x42\x0b\n\t_app_info\"\xe0\x01\n\x0cSearchResult\x12\x12\n\nmessage_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x18\n\x10parent_prompt_id\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\t\x12\x14\n\x0csent_by_user\x18\x05 \x01(\x08\x12\x30\n\x12parent_prompt_info\x18\x06 \x01(\x0b\x32\x14.firmware.PromptInfo\x12\x1b\n\x13\x63ontent_start_index\x18\x07 \x01(\x05\x12\x19\n\x11\x63ontent_end_index\x18\x08 \x01(\x05\"m\n\x0c\x41ttachedFile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x10\n\x08\x66ile_url\x18\x02 \x01(\t\x12\x0f\n\x07is_text\x18\x03 \x01(\x08\x12\x18\n\x0b\x65xpiry_time\x18\x04 \x01(\x03H\x00\x88\x01\x01\x42\x0e\n\x0c_expiry_time\"\xb8\x02\n\x0bPromptEntry\x12\x12\n\nmessage_id\x18\x01 \x01(\t\x12\x33\n\x04role\x18\x02 \x01(\x0e\x32%.firmware.PromptEntry.PromptEntryRole\x12!\n\x07\x63ontent\x18\x03 \x01(\x0b\x32\x10.truffle.Content\x12\x13\n\x0bin_progress\x18\x04 \x01(\x08\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\x12%\n\x05\x66iles\x18\x06 \x03(\x0b\x32\x16.firmware.AttachedFile\x12\x17\n\x0froot_message_id\x18\x07 \x01(\t\"U\n\x0fPromptEntryRole\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\r\n\tROLE_USER\x10\x01\x12\x12\n\x0eROLE_ASSISTANT\x10\x02\x12\r\n\tROLE_TOOL\x10\x03\"\x85\x02\n\x0ePromptResponse\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12\"\n\x04info\x18\x02 \x01(\x0b\x32\x14.firmware.PromptInfo\x12\x41\n\x15user_response_request\x18\x03 \x01(\x0b\x32\x1d.firmware.UserResponseRequestH\x00\x88\x01\x01\x12\'\n\x08messages\x18\x04 \x03(\x0b\x32\x15.firmware.PromptEntry\x12\x1f\n\x12jump_to_message_id\x18\x05 \x01(\tH\x01\x88\x01\x01\x42\x18\n\x16_user_response_requestB\x15\n\x13_jump_to_message_id\"O\n\x14StreamingPromptEntry\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12$\n\x05\x65ntry\x18\x02 \x01(\x0b\x32\x15.firmware.PromptEntry\"?\n\rFirmwareError\x12\r\n\x05\x65rror\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x02 \x01(\t\x12\x0e\n\x06\x65rrnum\x18\x03 \x01(\x05\"H\n\x0e\x44\x65vModeCommand\x12\x19\n\x11prompt_id_to_load\x18\x01 \x01(\t\x12\x1b\n\x13\x61\x63tive_dev_app_name\x18\x02 \x01(\t\"\xd6\x02\n\x0f\x46irmwareMessage\x12+\n\x0bsystem_info\x18\x01 \x01(\x0b\x32\x14.firmware.SystemInfoH\x00\x12,\n\x08response\x18\x02 \x01(\x0b\x32\x18.firmware.PromptResponseH\x00\x12*\n\x06search\x18\x03 \x01(\x0b\x32\x18.firmware.SearchResponseH\x00\x12\x30\n\x06stream\x18\x04 \x01(\x0b\x32\x1e.firmware.StreamingPromptEntryH\x00\x12(\n\x05\x65rror\x18\x05 \x01(\x0b\x32\x17.firmware.FirmwareErrorH\x00\x12/\n\x05\x63lass\x18\x06 \x01(\x0b\x32\x1e.firmware.PromptClassificationH\x00\x12\'\n\x03\x64\x65v\x18\x07 \x01(\x0b\x32\x18.firmware.DevModeCommandH\x00\x42\x06\n\x04\x64\x61tab\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\x0e\x66irmware.proto\x12\x08\x66irmware\x1a\rcontent.proto"\xd7\x02\n\nSystemInfo\x12\x11\n\twifi_ssid\x18\x01 \x01(\t\x12\x11\n\twifi_rssi\x18\x02 \x01(\x03\x12\x11\n\tled_color\x18\x03 \x01(\x05\x12\x1a\n\x12last_authenticated\x18\x04 \x01(\x03\x12\x14\n\x0ctruffle_name\x18\x05 \x01(\t\x12\x16\n\x0e\x64\x65veloper_mode\x18\x06 \x01(\x08\x12:\n\x0enetwork_status\x18\x07 \x01(\x0e\x32".firmware.SystemInfo.NetworkStatus\x12)\n\x0e\x61vailable_apps\x18\x08 \x03(\x0b\x32\x11.firmware.AppInfo"_\n\rNetworkStatus\x12\x0f\n\x0bNET_DEFAULT\x10\x00\x12\x15\n\x11NET_NOT_CONNECTED\x10\x01\x12\x13\n\x0fNET_NO_INTERNET\x10\x02\x12\x11\n\rNET_CONNECTED\x10\x03"L\n\x0eSearchResponse\x12\x11\n\tsearch_id\x18\x01 \x01(\t\x12\'\n\x07results\x18\x02 \x03(\x0b\x32\x16.firmware.SearchResult"d\n\x07\x41ppInfo\x12\x15\n\rapp_icon_name\x18\x01 \x01(\t\x12\x10\n\x08\x61pp_name\x18\x02 \x01(\t\x12\x17\n\x0f\x61pp_description\x18\x03 \x01(\t\x12\x17\n\x0fthird_party_app\x18\x04 \x01(\x08"J\n\x14PromptClassification\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12\x1f\n\x04\x61pps\x18\x02 \x03(\x0b\x32\x11.firmware.AppInfo"\xb9\x01\n\x13UserResponseRequest\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12\x0e\n\x06urr_id\x18\x02 \x01(\t\x12\x0e\n\x06reason\x18\x03 \x01(\t\x12\x37\n\x04type\x18\x04 \x01(\x0e\x32).firmware.UserResponseRequest.RequestType"6\n\x0bRequestType\x12\x13\n\x0f\x44\x45\x46\x41ULT_REQUEST\x10\x00\x12\x12\n\x0eINLINE_REQUEST\x10\x01"\xe2\x03\n\nPromptInfo\x12\x31\n\x06status\x18\x01 \x01(\x0e\x32!.firmware.PromptInfo.PromptStatus\x12\r\n\x05title\x18\x02 \x01(\t\x12\x10\n\x08subtitle\x18\x03 \x01(\t\x12-\n\x04type\x18\x04 \x01(\x0e\x32\x1f.firmware.PromptInfo.PromptType\x12(\n\x08\x61pp_info\x18\x05 \x01(\x0b\x32\x11.firmware.AppInfoH\x00\x88\x01\x01"]\n\nPromptType\x12\x10\n\x0cTYPE_DEFAULT\x10\x00\x12\r\n\tTYPE_CHAT\x10\x01\x12\r\n\tTYPE_TASK\x10\x02\x12\x0f\n\x0bTYPE_BGTASK\x10\x03\x12\x0e\n\nTYPE_OTHER\x10\x04"\xba\x01\n\x0cPromptStatus\x12\x13\n\x0fPROMPT_STARTING\x10\x00\x12\x16\n\x12PROMPT_LOADING_APP\x10\x01\x12\x1d\n\x19PROMPT_NEED_USER_RESPONSE\x10\x02\x12\x1c\n\x18PROMPT_IN_APP_ENVIROMENT\x10\x03\x12\x10\n\x0cPROMPT_ERROR\x10\x04\x12\x16\n\x12PROMPT_UNAVAILABLE\x10\x05\x12\x16\n\x12PROMPT_HAS_RESULTS\x10\x06\x42\x0b\n\t_app_info"\xe0\x01\n\x0cSearchResult\x12\x12\n\nmessage_id\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\t\x12\x18\n\x10parent_prompt_id\x18\x03 \x01(\t\x12\x11\n\ttimestamp\x18\x04 \x01(\t\x12\x14\n\x0csent_by_user\x18\x05 \x01(\x08\x12\x30\n\x12parent_prompt_info\x18\x06 \x01(\x0b\x32\x14.firmware.PromptInfo\x12\x1b\n\x13\x63ontent_start_index\x18\x07 \x01(\x05\x12\x19\n\x11\x63ontent_end_index\x18\x08 \x01(\x05"m\n\x0c\x41ttachedFile\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t\x12\x10\n\x08\x66ile_url\x18\x02 \x01(\t\x12\x0f\n\x07is_text\x18\x03 \x01(\x08\x12\x18\n\x0b\x65xpiry_time\x18\x04 \x01(\x03H\x00\x88\x01\x01\x42\x0e\n\x0c_expiry_time"\xb8\x02\n\x0bPromptEntry\x12\x12\n\nmessage_id\x18\x01 \x01(\t\x12\x33\n\x04role\x18\x02 \x01(\x0e\x32%.firmware.PromptEntry.PromptEntryRole\x12!\n\x07\x63ontent\x18\x03 \x01(\x0b\x32\x10.truffle.Content\x12\x13\n\x0bin_progress\x18\x04 \x01(\x08\x12\x11\n\ttimestamp\x18\x05 \x01(\x03\x12%\n\x05\x66iles\x18\x06 \x03(\x0b\x32\x16.firmware.AttachedFile\x12\x17\n\x0froot_message_id\x18\x07 \x01(\t"U\n\x0fPromptEntryRole\x12\x10\n\x0cROLE_UNKNOWN\x10\x00\x12\r\n\tROLE_USER\x10\x01\x12\x12\n\x0eROLE_ASSISTANT\x10\x02\x12\r\n\tROLE_TOOL\x10\x03"\x85\x02\n\x0ePromptResponse\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12"\n\x04info\x18\x02 \x01(\x0b\x32\x14.firmware.PromptInfo\x12\x41\n\x15user_response_request\x18\x03 \x01(\x0b\x32\x1d.firmware.UserResponseRequestH\x00\x88\x01\x01\x12\'\n\x08messages\x18\x04 \x03(\x0b\x32\x15.firmware.PromptEntry\x12\x1f\n\x12jump_to_message_id\x18\x05 \x01(\tH\x01\x88\x01\x01\x42\x18\n\x16_user_response_requestB\x15\n\x13_jump_to_message_id"O\n\x14StreamingPromptEntry\x12\x11\n\tprompt_id\x18\x01 \x01(\t\x12$\n\x05\x65ntry\x18\x02 \x01(\x0b\x32\x15.firmware.PromptEntry"?\n\rFirmwareError\x12\r\n\x05\x65rror\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x02 \x01(\t\x12\x0e\n\x06\x65rrnum\x18\x03 \x01(\x05"H\n\x0e\x44\x65vModeCommand\x12\x19\n\x11prompt_id_to_load\x18\x01 \x01(\t\x12\x1b\n\x13\x61\x63tive_dev_app_name\x18\x02 \x01(\t"\xd6\x02\n\x0f\x46irmwareMessage\x12+\n\x0bsystem_info\x18\x01 \x01(\x0b\x32\x14.firmware.SystemInfoH\x00\x12,\n\x08response\x18\x02 \x01(\x0b\x32\x18.firmware.PromptResponseH\x00\x12*\n\x06search\x18\x03 \x01(\x0b\x32\x18.firmware.SearchResponseH\x00\x12\x30\n\x06stream\x18\x04 \x01(\x0b\x32\x1e.firmware.StreamingPromptEntryH\x00\x12(\n\x05\x65rror\x18\x05 \x01(\x0b\x32\x17.firmware.FirmwareErrorH\x00\x12/\n\x05\x63lass\x18\x06 \x01(\x0b\x32\x1e.firmware.PromptClassificationH\x00\x12\'\n\x03\x64\x65v\x18\x07 \x01(\x0b\x32\x18.firmware.DevModeCommandH\x00\x42\x06\n\x04\x64\x61tab\x06proto3'
+)
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'firmware_pb2', _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "firmware_pb2", _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_SYSTEMINFO']._serialized_start=44
-  _globals['_SYSTEMINFO']._serialized_end=387
-  _globals['_SYSTEMINFO_NETWORKSTATUS']._serialized_start=292
-  _globals['_SYSTEMINFO_NETWORKSTATUS']._serialized_end=387
-  _globals['_SEARCHRESPONSE']._serialized_start=389
-  _globals['_SEARCHRESPONSE']._serialized_end=465
-  _globals['_APPINFO']._serialized_start=467
-  _globals['_APPINFO']._serialized_end=567
-  _globals['_PROMPTCLASSIFICATION']._serialized_start=569
-  _globals['_PROMPTCLASSIFICATION']._serialized_end=643
-  _globals['_USERRESPONSEREQUEST']._serialized_start=646
-  _globals['_USERRESPONSEREQUEST']._serialized_end=831
-  _globals['_USERRESPONSEREQUEST_REQUESTTYPE']._serialized_start=777
-  _globals['_USERRESPONSEREQUEST_REQUESTTYPE']._serialized_end=831
-  _globals['_PROMPTINFO']._serialized_start=834
-  _globals['_PROMPTINFO']._serialized_end=1316
-  _globals['_PROMPTINFO_PROMPTTYPE']._serialized_start=1021
-  _globals['_PROMPTINFO_PROMPTTYPE']._serialized_end=1114
-  _globals['_PROMPTINFO_PROMPTSTATUS']._serialized_start=1117
-  _globals['_PROMPTINFO_PROMPTSTATUS']._serialized_end=1303
-  _globals['_SEARCHRESULT']._serialized_start=1319
-  _globals['_SEARCHRESULT']._serialized_end=1543
-  _globals['_ATTACHEDFILE']._serialized_start=1545
-  _globals['_ATTACHEDFILE']._serialized_end=1654
-  _globals['_PROMPTENTRY']._serialized_start=1657
-  _globals['_PROMPTENTRY']._serialized_end=1969
-  _globals['_PROMPTENTRY_PROMPTENTRYROLE']._serialized_start=1884
-  _globals['_PROMPTENTRY_PROMPTENTRYROLE']._serialized_end=1969
-  _globals['_PROMPTRESPONSE']._serialized_start=1972
-  _globals['_PROMPTRESPONSE']._serialized_end=2233
-  _globals['_STREAMINGPROMPTENTRY']._serialized_start=2235
-  _globals['_STREAMINGPROMPTENTRY']._serialized_end=2314
-  _globals['_FIRMWAREERROR']._serialized_start=2316
-  _globals['_FIRMWAREERROR']._serialized_end=2379
-  _globals['_DEVMODECOMMAND']._serialized_start=2381
-  _globals['_DEVMODECOMMAND']._serialized_end=2453
-  _globals['_FIRMWAREMESSAGE']._serialized_start=2456
-  _globals['_FIRMWAREMESSAGE']._serialized_end=2798
+    DESCRIPTOR._loaded_options = None
+    _globals["_SYSTEMINFO"]._serialized_start = 44
+    _globals["_SYSTEMINFO"]._serialized_end = 387
+    _globals["_SYSTEMINFO_NETWORKSTATUS"]._serialized_start = 292
+    _globals["_SYSTEMINFO_NETWORKSTATUS"]._serialized_end = 387
+    _globals["_SEARCHRESPONSE"]._serialized_start = 389
+    _globals["_SEARCHRESPONSE"]._serialized_end = 465
+    _globals["_APPINFO"]._serialized_start = 467
+    _globals["_APPINFO"]._serialized_end = 567
+    _globals["_PROMPTCLASSIFICATION"]._serialized_start = 569
+    _globals["_PROMPTCLASSIFICATION"]._serialized_end = 643
+    _globals["_USERRESPONSEREQUEST"]._serialized_start = 646
+    _globals["_USERRESPONSEREQUEST"]._serialized_end = 831
+    _globals["_USERRESPONSEREQUEST_REQUESTTYPE"]._serialized_start = 777
+    _globals["_USERRESPONSEREQUEST_REQUESTTYPE"]._serialized_end = 831
+    _globals["_PROMPTINFO"]._serialized_start = 834
+    _globals["_PROMPTINFO"]._serialized_end = 1316
+    _globals["_PROMPTINFO_PROMPTTYPE"]._serialized_start = 1021
+    _globals["_PROMPTINFO_PROMPTTYPE"]._serialized_end = 1114
+    _globals["_PROMPTINFO_PROMPTSTATUS"]._serialized_start = 1117
+    _globals["_PROMPTINFO_PROMPTSTATUS"]._serialized_end = 1303
+    _globals["_SEARCHRESULT"]._serialized_start = 1319
+    _globals["_SEARCHRESULT"]._serialized_end = 1543
+    _globals["_ATTACHEDFILE"]._serialized_start = 1545
+    _globals["_ATTACHEDFILE"]._serialized_end = 1654
+    _globals["_PROMPTENTRY"]._serialized_start = 1657
+    _globals["_PROMPTENTRY"]._serialized_end = 1969
+    _globals["_PROMPTENTRY_PROMPTENTRYROLE"]._serialized_start = 1884
+    _globals["_PROMPTENTRY_PROMPTENTRYROLE"]._serialized_end = 1969
+    _globals["_PROMPTRESPONSE"]._serialized_start = 1972
+    _globals["_PROMPTRESPONSE"]._serialized_end = 2233
+    _globals["_STREAMINGPROMPTENTRY"]._serialized_start = 2235
+    _globals["_STREAMINGPROMPTENTRY"]._serialized_end = 2314
+    _globals["_FIRMWAREERROR"]._serialized_start = 2316
+    _globals["_FIRMWAREERROR"]._serialized_end = 2379
+    _globals["_DEVMODECOMMAND"]._serialized_start = 2381
+    _globals["_DEVMODECOMMAND"]._serialized_end = 2453
+    _globals["_FIRMWAREMESSAGE"]._serialized_start = 2456
+    _globals["_FIRMWAREMESSAGE"]._serialized_end = 2798
 # @@protoc_insertion_point(module_scope)
