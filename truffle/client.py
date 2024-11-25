@@ -1,5 +1,5 @@
 import grpc
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Literal, Optional
 import numpy as np
 
 # Import the generated protobuf modules
@@ -39,11 +39,13 @@ class Client:
             >>> client = Client("localhost:50051")
         """
         self.start_cbs = {}
-        self.stop_cbs = {}
 
         # Initialize the gRPC channel and stub
         self.channel = grpc.insecure_channel(server_address)
         self.stub = app_pb2_grpc.AppStub(self.channel)
+
+        # Initialize the context
+        self.context = context_pb2.PrevContext(state={})
 
     def __del__(self):
         """Clean up by closing the gRPC channel."""
@@ -179,6 +181,7 @@ class Client:
         generate_request = app_pb2.GenerateRequest(
             id="generate_request_1",
             prompt=prompt,
+            context=self.context,
             max_tokens=max_tokens or 512,
             temperature=temperature or 1.0,
             frequency_penalty=frequency_penalty or 0.0,
@@ -304,6 +307,15 @@ class Client:
             embeddings.append(embedding.data)
 
         return np.array(embeddings)
+    
+    def set_status(self, status: Literal["idle", "busy", "error", "ready"]):
+        """Set the status of the client.
+
+        Args:
+            status (str): The status to set
+        """
+        # Set the status in the context state
+        self.context.state['status'] = status
 
     def input(self, prompt: str, **kwargs) -> str:
         """Send a user response request and wait for response.
@@ -418,83 +430,3 @@ class Client:
         # Optionally handle the response or log the error
         if response.HasField('error'):
             raise Exception(response.error.error)
-
-    def add_start_callback(self, cb: Callable[[], None]) -> str:
-        """Add a callback to be called when generation starts.
-
-        Args:
-            cb (Callable[[], None]): The callback function
-
-        Returns:
-            str: ID of the registered callback
-
-        Example:
-            >>> client = Client()
-            >>> def on_start():
-            ...     print("Generation started!")
-            >>> callback_id = client.add_start_callback(on_start)
-            >>> print(isinstance(callback_id, str))
-            True
-        """
-        callback_id = str(id(cb))
-        self.start_cbs[callback_id] = cb
-        return callback_id
-
-    def add_stop_callback(self, cb: Callable[[], None]) -> str:
-        """Add a callback to be called when generation stops.
-
-        Args:
-            cb (Callable[[], None]): The callback function
-
-        Returns:
-            str: ID of the registered callback
-
-        Example:
-            >>> client = Client()
-            >>> def on_stop():
-            ...     print("Generation completed!")
-            >>> callback_id = client.add_stop_callback(on_stop)
-            >>> print(isinstance(callback_id, str))
-            True
-        """
-        callback_id = str(id(cb))
-        self.stop_cbs[callback_id] = cb
-        return callback_id
-
-    def remove_start_callback(self, cb_or_id: Callable[[], None] or str):
-        """Remove a start callback.
-
-        Args:
-            cb_or_id (Union[Callable[[], None], str]): The callback function or its ID
-
-        Example:
-            >>> client = Client()
-            >>> def on_start():
-            ...     print("Generation started!")
-            >>> callback_id = client.add_start_callback(on_start)
-            >>> client.remove_start_callback(callback_id)
-        """
-        if isinstance(cb_or_id, str):
-            self.start_cbs.pop(cb_or_id, None)
-        else:
-            callback_id = str(id(cb_or_id))
-            self.start_cbs.pop(callback_id, None)
-
-    def remove_stop_callback(self, cb_or_id: Callable[[], None] or str):
-        """Remove a stop callback.
-
-        Args:
-            cb_or_id (Union[Callable[[], None], str]): The callback function or its ID
-
-        Example:
-            >>> client = Client()
-            >>> def on_stop():
-            ...     print("Generation completed!")
-            >>> callback_id = client.add_stop_callback(on_stop)
-            >>> client.remove_stop_callback(callback_id)
-        """
-        if isinstance(cb_or_id, str):
-            self.stop_cbs.pop(cb_or_id, None)
-        else:
-            callback_id = str(id(cb_or_id))
-            self.stop_cbs.pop(callback_id, None)
